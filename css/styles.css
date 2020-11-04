@@ -4,4 +4,36 @@
 
 #game{
   display: none;
+  margin-top: 50px;
+}
+
+#form {
+  margin-top: 50px;
+}
+
+#dice {
+  border: solid 3px black;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  padding-top: 4px;
+  border-radius: 15%;
+  margin: 0 auto;
+}
+
+#score {
+  text-align: center;
+}
+
+.card{
+  border:none;
+  text-align: center;
+}
+
+.player{
+  left: 50%;
+}
+
+.roll, .hold{
+  width: 48%;
 }
