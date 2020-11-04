@@ -21,14 +21,26 @@ function gameStart(players_array){
   for(let i = 0; i < players_array.length; i ++){
     if(players_array.length === 2){
       $(".player-1").text(players_array[0].name);
+      $("#card1").append("<div> <button class= 'roll " + players_array[0].id + "'>Roll</button> <button class= 'hold "+ players_array[0].id +"'>Hold</button><div>");
       $(".player-2").text(players_array[1].name);
+      $("#card2").append("<div> <button class= 'roll " + players_array[1].id + "'>Roll</button> <button class= 'hold "+ players_array[1].id +"'>Hold</button></div>");
       $("#form").hide();
       $("#game").show();
     }
   }
 }
 
+function roll(){
+  let dice = document.getElementById("dice");
+  let roll = Math.floor((Math.random() * 6) + 1);
+  dice.innerHTML = roll;
+  if (roll === 1) {
 
+  } else if (roll != 1) {
+
+  }
+
+}
 
 $(document).ready(function() {
   let game = new Game();
