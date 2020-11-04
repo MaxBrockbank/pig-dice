@@ -1,3 +1,7 @@
 #start{
   width:100%;
 }
+
+#game{
+  display: none;
+}

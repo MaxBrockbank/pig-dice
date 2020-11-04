@@ -20,7 +20,7 @@
 | Behavior                                                        | Input     | Output    |
 | --------------------------------------------------------------- | --------- | --------- |
 | Player Enters Name and name displays back | Greg | Greg |
-| Clicking Play will display the game | Click Play | Game Starts |
+| Clicking Start will display the game | Click Start | Game Starts |
 | Roll button will trigger RNG 1-6 display back result | Roll | 1-6 |
 | It will add roll values | 2,5,3 | 10 |
 | It will recognize value 1 and end turn clearing round total | 1 | Clears round score |
