@@ -22,12 +22,20 @@ function Player (name){
   this.name = name;
   this.total= 0;
   this.score = 0;
+  this.wins = 0;
 }
 
 Player.prototype.newScore = function(roll){
   this.score += roll;
   return this.score;
 }
+
+Player.prototype.winner = function(){
+  if (this.total + this.score >= 50) {
+    $(`.wins.${this.id}`).text(this.wins++);
+  }
+}
+
 // User Logic
 
 function gameStart(players_array){
@@ -75,13 +83,14 @@ function roll(currentPlayer){
   } else if (roll != 1) {
     currentPlayer.newScore(roll);
     $("#score").text("Round Total: "+ currentPlayer.score);
+    currentPlayer.winner();
   }
 }
 // span id targeting needs work
 function hold(currentPlayer){
   currentPlayer.total += currentPlayer.score;
-$(`span .total, .${currentPlayer.id}`).text(currentPlayer.total);
-  console.log(currentPlayer.total)
+  currentPlayer.winner();
+  $(`.total.${currentPlayer.id}`).text(currentPlayer.total);
   switchUser(currentPlayer);
 }
 
