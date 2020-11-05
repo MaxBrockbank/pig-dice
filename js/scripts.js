@@ -31,6 +31,7 @@ function Player (name){
   this.total= 0;
   this.score = 0;
   this.wins = 0;
+  this.losses = 0;
 }
 
 Player.prototype.newScore = function(roll){
@@ -44,8 +45,14 @@ Player.prototype.winner = function(game){
     $(`.wins.${this.id}`).text(this.wins);
     game.reset();
     switchUser(this);
+
+    for(let i = 0; i < game.players.length; i++){
+      if(game.players[i] !== this){
+        game.players[i].losses ++;
+        $(`.losses.${game.players[i].id}`).text(game.players[i].losses);
+      }
+    }
   }
-  console.log(this);
 }
 
 // User Logic
@@ -98,7 +105,7 @@ function roll(currentPlayer, game){
     $("#score").text("Round Total: "+ currentPlayer.score);
   }
 }
-// span id targeting needs work
+
 function hold(currentPlayer, game){
   currentPlayer.winner(game);
   currentPlayer.total += currentPlayer.score;
