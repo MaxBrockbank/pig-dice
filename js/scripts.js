@@ -18,6 +18,14 @@ Game.prototype.findPlayer = function(buttonClasslist){
   }
 }
 
+Game.prototype.reset = function(){
+  this.players.forEach(function(player){
+    player.total = 0;
+    player.score = 0;
+  })
+  $(".total").text('');
+}
+
 function Player (name){
   this.name = name;
   this.total= 0;
@@ -30,10 +38,14 @@ Player.prototype.newScore = function(roll){
   return this.score;
 }
 
-Player.prototype.winner = function(){
-  if (this.total + this.score >= 50) {
-    $(`.wins.${this.id}`).text(this.wins++);
+Player.prototype.winner = function(game){
+  if (this.total >= 20 || this.score >=20) {
+    this.wins++;
+    $(`.wins.${this.id}`).text(this.wins);
+    game.reset();
+    switchUser(this);
   }
+  console.log(this);
 }
 
 // User Logic
@@ -64,16 +76,16 @@ function switchUser (currentPlayer) {
 function addClickEvent(game){
   $(".buttons").on('click', 'button.roll', function(){
     let currentPlayer = game.findPlayer(this.classList[1]);
-    roll(currentPlayer);
+    roll(currentPlayer, game);
   }); 
   $(".buttons").on('click', 'button.hold', function(){
     let currentPlayer = game.findPlayer(this.classList[1]);
-    hold(currentPlayer);
+    hold(currentPlayer, game);
   })
   
 }
 
-function roll(currentPlayer){
+function roll(currentPlayer, game){
   let dice = document.getElementById("dice");
   let roll = Math.floor((Math.random() * 6) + 1);
   dice.innerHTML = roll;
@@ -82,15 +94,17 @@ function roll(currentPlayer){
     switchUser(currentPlayer);
   } else if (roll != 1) {
     currentPlayer.newScore(roll);
+    currentPlayer.winner(game);
     $("#score").text("Round Total: "+ currentPlayer.score);
-    currentPlayer.winner();
   }
 }
 // span id targeting needs work
-function hold(currentPlayer){
+function hold(currentPlayer, game){
+  currentPlayer.winner(game);
   currentPlayer.total += currentPlayer.score;
-  currentPlayer.winner();
+  currentPlayer.winner(game);
   $(`.total.${currentPlayer.id}`).text(currentPlayer.total);
+  $("#score").text("Round Total: "+ 0);
   switchUser(currentPlayer);
 }
 
