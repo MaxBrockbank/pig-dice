@@ -20,6 +20,7 @@ Game.prototype.findPlayer = function(buttonClasslist){
 
 function Player (name){
   this.name = name;
+  this.total= 0;
   this.score = 0;
 }
 
@@ -42,7 +43,6 @@ function gameStart(players_array){
 }
 
 function switchUser (currentPlayer) {
-  console.log(currentPlayer.id);
   currentPlayer.score = 0;
   if (currentPlayer.id === 0) {
     $("#1").hide();
@@ -56,9 +56,13 @@ function switchUser (currentPlayer) {
 function addClickEvent(game){
   $(".buttons").on('click', 'button.roll', function(){
     let currentPlayer = game.findPlayer(this.classList[1]);
-    console.log(currentPlayer);
     roll(currentPlayer);
   }); 
+  $(".buttons").on('click', 'button.hold', function(){
+    let currentPlayer = game.findPlayer(this.classList[1]);
+    hold(currentPlayer);
+  })
+  
 }
 
 function roll(currentPlayer){
@@ -72,7 +76,13 @@ function roll(currentPlayer){
     currentPlayer.newScore(roll);
     $("#score").text("Round Total: "+ currentPlayer.score);
   }
-
+}
+// span id targeting needs work
+function hold(currentPlayer){
+  currentPlayer.total += currentPlayer.score;
+$(`span .total, .${currentPlayer.id}`).text(currentPlayer.total);
+  console.log(currentPlayer.total)
+  switchUser(currentPlayer);
 }
 
 $(document).ready(function() {
